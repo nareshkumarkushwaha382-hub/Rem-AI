@@ -1,0 +1,430 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XX-ccMhVoM6M",
+        "outputId": "f9e893e2-d56b-4699-b354-e78df20945b7"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Rem AI Development Started!\n",
+            "Python environment is ready.\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(\"Rem AI Development Started!\")\n",
+        "print(\"Python environment is ready.\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%pip install openai"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "u2G9WjoZol3I",
+        "outputId": "56ed69f2-015f-490c-f8d8-8dff5866d1eb"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: openai in /usr/local/lib/python3.13/dist-packages (2.54.0)\n",
+            "Requirement already satisfied: anyio<5,>=3.5.0 in /usr/local/lib/python3.13/dist-packages (from openai) (4.16.0)\n",
+            "Requirement already satisfied: distro<2,>=1.7.0 in /usr/local/lib/python3.13/dist-packages (from openai) (1.9.0)\n",
+            "Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from openai) (0.28.1)\n",
+            "Requirement already satisfied: jiter<1,>=0.10.0 in /usr/local/lib/python3.13/dist-packages (from openai) (0.18.0)\n",
+            "Requirement already satisfied: pydantic<3,>=1.9.0 in /usr/local/lib/python3.13/dist-packages (from openai) (2.14.2)\n",
+            "Requirement already satisfied: sniffio in /usr/local/lib/python3.13/dist-packages (from openai) (1.3.1)\n",
+            "Requirement already satisfied: tqdm>4 in /usr/local/lib/python3.13/dist-packages (from openai) (4.67.3)\n",
+            "Requirement already satisfied: typing-extensions<5,>=4.14 in /usr/local/lib/python3.13/dist-packages (from openai) (4.16.0)\n",
+            "Requirement already satisfied: idna>=2.8 in /usr/local/lib/python3.13/dist-packages (from anyio<5,>=3.5.0->openai) (3.20)\n",
+            "Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->openai) (2026.10.23)\n",
+            "Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->openai) (1.0.9)\n",
+            "Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->openai) (0.16.0)\n",
+            "Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.13/dist-packages (from pydantic<3,>=1.9.0->openai) (0.8.0)\n",
+            "Requirement already satisfied: pydantic-core==2.50.2 in /usr/local/lib/python3.13/dist-packages (from pydantic<3,>=1.9.0->openai) (2.50.2)\n",
+            "Requirement already satisfied: typing-inspection>=0.4.4 in /usr/local/lib/python3.13/dist-packages (from pydantic<3,>=1.9.0->openai) (0.4.4)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from openai import OpenAI\n",
+        "\n",
+        "print(\"OpenAI library imported successfully!\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mNFOLDcAox83",
+        "outputId": "a83c0152-4fa2-4c91-d9d5-d00bece17f37"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "OpenAI library imported successfully!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "# PROJECT REM AI\n",
+        "# First local chatbot prototype\n",
+        "\n",
+        "REM_PERSONALITY = \"\"\"\n",
+        "You are Rem, a kind, polite and caring AI character.\n",
+        "You speak naturally in Hindi, English and Hinglish.\n",
+        "You are friendly, supportive and occasionally playful.\n",
+        "\"\"\"\n",
+        "\n",
+        "conversation = []\n",
+        "\n",
+        "def rem_chat(message):\n",
+        "    conversation.append({\n",
+        "        \"user\": message,\n",
+        "        \"rem\": \"Rem ka AI brain abhi development mein hai!\"\n",
+        "    })\n",
+        "\n",
+        "    return conversation[-1][\"rem\"]\n",
+        "\n",
+        "\n",
+        "print(\"Rem AI is ready!\")\n",
+        "print(rem_chat(\"Hello Rem!\"))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xfRHuSebpTXf",
+        "outputId": "e578f551-9a41-495c-d022-fe4f9fd31888"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Rem AI is ready!\n",
+            "Rem ka AI brain abhi development mein hai!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "# REM AI - MEMORY SYSTEM\n",
+        "\n",
+        "rem_memory = []\n",
+        "\n",
+        "def remember(user_message, rem_reply):\n",
+        "    rem_memory.append({\n",
+        "        \"user\": user_message,\n",
+        "        \"rem\": rem_reply\n",
+        "    })\n",
+        "\n",
+        "def show_memory():\n",
+        "    for item in rem_memory:\n",
+        "        print(\"You:\", item[\"user\"])\n",
+        "        print(\"Rem:\", item[\"rem\"])\n",
+        "        print(\"-------------------\")\n",
+        "\n",
+        "remember(\"Hello Rem!\", \"Hello! How are you?\")\n",
+        "remember(\"I like anime.\", \"That's wonderful!\")\n",
+        "\n",
+        "show_memory()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8RBxAf6SpcFf",
+        "outputId": "b2a75651-beca-49e9-ec5f-1e6199280ff5"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "You: Hello Rem!\n",
+            "Rem: Hello! How are you?\n",
+            "-------------------\n",
+            "You: I like anime.\n",
+            "Rem: That's wonderful!\n",
+            "-------------------\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import sqlite3\n",
+        "\n",
+        "# Create memory database\n",
+        "db = sqlite3.connect(\"rem_memory.db\")\n",
+        "cursor = db.cursor()\n",
+        "\n",
+        "cursor.execute(\"\"\"\n",
+        "CREATE TABLE IF NOT EXISTS memories (\n",
+        "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n",
+        "    category TEXT,\n",
+        "    information TEXT\n",
+        ")\n",
+        "\"\"\")\n",
+        "\n",
+        "db.commit()\n",
+        "\n",
+        "def save_memory(category, information):\n",
+        "    cursor.execute(\n",
+        "        \"INSERT INTO memories (category, information) VALUES (?, ?)\",\n",
+        "        (category, information)\n",
+        "    )\n",
+        "    db.commit()\n",
+        "    print(\"Rem saved this memory!\")\n",
+        "\n",
+        "def show_memories():\n",
+        "    cursor.execute(\"SELECT category, information FROM memories\")\n",
+        "    memories = cursor.fetchall()\n",
+        "\n",
+        "    for category, information in memories:\n",
+        "        print(category, \":\", information)\n",
+        "\n",
+        "print(\"Rem's long-term memory is ready!\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TR-gN06fpqPV",
+        "outputId": "d99ff993-9558-4e83-ba7e-bf788a2cbb91"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Rem's long-term memory is ready!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "# Save personal memories\n",
+        "\n",
+        "save_memory(\"Name\", \"Sarwesh\")\n",
+        "save_memory(\"Favourite Anime\", \"Re:ZERO\")\n",
+        "save_memory(\"Favourite Character\", \"Rem\")\n",
+        "save_memory(\"Interests\", \"Anime, Drawing, Electronics and Chess\")\n",
+        "\n",
+        "# Display saved memories\n",
+        "print(\"\\n--- REM'S MEMORIES ---\")\n",
+        "show_memories()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "i8REdy3Sp0Bw",
+        "outputId": "05be2efb-ea14-4e7f-e177-10b42335916f"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Rem saved this memory!\n",
+            "Rem saved this memory!\n",
+            "Rem saved this memory!\n",
+            "Rem saved this memory!\n",
+            "\n",
+            "--- REM'S MEMORIES ---\n",
+            "Name : Sarwesh\n",
+            "Favourite Anime : Re:ZERO\n",
+            "Favourite Character : Rem\n",
+            "Interests : Anime, Drawing, Electronics and Chess\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "def rem_recall():\n",
+        "    cursor.execute(\n",
+        "        \"SELECT category, information FROM memories\"\n",
+        "    )\n",
+        "\n",
+        "    memories = cursor.fetchall()\n",
+        "\n",
+        "    print(\"Rem: Let me recall what I know!\")\n",
+        "\n",
+        "    for category, information in memories:\n",
+        "        print(f\"{category}: {information}\")\n",
+        "\n",
+        "\n",
+        "rem_recall()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JWjdBhsOqBAU",
+        "outputId": "4f2d6ac7-5bfd-4558-c1e0-8d841bf7a487"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Rem: Let me recall what I know!\n",
+            "Name: Sarwesh\n",
+            "Favourite Anime: Re:ZERO\n",
+            "Favourite Character: Rem\n",
+            "Interests: Anime, Drawing, Electronics and Chess\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "def rem_chat_loop():\n",
+        "    print(\"Rem: Hello! I'm ready to talk.\")\n",
+        "    print(\"Type 'bye' to end the conversation.\\n\")\n",
+        "\n",
+        "    while True:\n",
+        "        message = input(\"You: \")\n",
+        "\n",
+        "        if message.lower() == \"bye\":\n",
+        "            print(\"Rem: See you again!\")\n",
+        "            break\n",
+        "\n",
+        "        if \"name\" in message.lower():\n",
+        "            print(\"Rem: Your name is Sarwesh!\")\n",
+        "\n",
+        "        elif \"anime\" in message.lower():\n",
+        "            print(\"Rem: You love anime, especially Re:ZERO!\")\n",
+        "\n",
+        "        else:\n",
+        "            print(\"Rem: I'm listening! Tell me more.\")\n",
+        "\n",
+        "rem_chat_loop()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AAhqkSvSqL-A",
+        "outputId": "3a234152-d5f6-4df6-dc16-874d1e585a25"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Rem: Hello! I'm ready to talk.\n",
+            "Type 'bye' to end the conversation.\n",
+            "\n",
+            "You: Hi\n",
+            "Rem: I'm listening! Tell me more.\n",
+            "You: I'm sarwesh \n",
+            "Rem: I'm listening! Tell me more.\n",
+            "You: Bye\n",
+            "Rem: See you again!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "REM_LANGUAGE = {\n",
+        "    \"default\": \"Hinglish\",\n",
+        "    \"supported\": [\"Hindi\", \"English\", \"Hinglish\"],\n",
+        "    \"style\": \"Natural, friendly and conversational\",\n",
+        "    \"long_replies\": False\n",
+        "}\n",
+        "\n",
+        "def rem_language_settings():\n",
+        "    print(\"Rem's language settings:\")\n",
+        "    for key, value in REM_LANGUAGE.items():\n",
+        "        print(f\"{key}: {value}\")\n",
+        "\n",
+        "rem_language_settings()"
+      ],
+      "metadata": {
+        "id": "M2pvqsw6q-Py",
+        "outputId": "35a4d949-cbff-4d24-9528-6ae0daa5b75d",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Rem's language settings:\n",
+            "default: Hinglish\n",
+            "supported: ['Hindi', 'English', 'Hinglish']\n",
+            "style: Natural, friendly and conversational\n",
+            "long_replies: False\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
