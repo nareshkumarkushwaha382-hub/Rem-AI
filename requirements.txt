@@ -1,2 +1,4 @@
-
-openai
+starlette>=0.37
+uvicorn>=0.29
+requests>=2.31
+python-dotenv>=1.0

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#a9d0ff">
+  <title>Rem AI</title>
+  <meta name="description" content="Rem AI: a voice-enabled 2D AI companion that speaks Hindi, English and Hinglish.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">Rem AI<small>companion</small></div>
+    <div class="status" id="status" data-state="idle" role="status" aria-live="polite">
+      <span class="dot"></span>
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span id="status-text">Ready</span>
+    </div>
+    <button class="icon-btn" id="btn-memory" aria-label="Memories" title="Memories">
+      <svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-6 6c0 2 1 3.4 2 4.5V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-3.5c1-1.1 2-2.5 2-4.5a6 6 0 0 0-6-6z"/><path d="M10 21h4"/></svg>
+    </button>
+    <button class="icon-btn" id="btn-settings" aria-label="Settings" title="Settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <section class="stage" aria-label="Rem">
+      <div id="character"></div>
+    </section>
+
+    <section class="panel" aria-label="Conversation">
+      <div id="messages" aria-live="polite"></div>
+      <div class="suggestion" id="suggestion" hidden>
+        <b id="suggestion-text"></b>
+        <button class="btn primary sm" id="sug-yes" type="button">Remember</button>
+        <button class="btn sm" id="sug-no" type="button">No thanks</button>
+      </div>
+      <form class="composer" id="composer" autocomplete="off">
+        <button class="mic" id="btn-mic" type="button" aria-pressed="false" aria-label="Start listening" title="Tap to talk">
+          <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        </button>
+        <input type="text" id="input" placeholder="Type a message… / kuch likhiye…" enterkeyhint="send" aria-label="Message" maxlength="1000">
+        <button class="send" id="btn-send" type="submit" aria-label="Send">
+          <svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+        </button>
+      </form>
+      <div class="hint" id="hint"></div>
+    </section>
+  </main>
+</div>
+
+<!-- Memory sheet -->
+<dialog class="sheet" id="sheet-memory" aria-labelledby="mem-title">
+  <div class="sheet-head"><h2 id="mem-title">What Rem remembers</h2><button class="btn sm" data-close>Close</button></div>
+  <div class="sheet-body">
+    <div class="note">Rem only saves things you approve. Add, edit or delete anything here.</div>
+    <form class="row" id="mem-form" autocomplete="off">
+      <input type="text" id="mem-input" placeholder="e.g. My favourite anime is Re:ZERO" maxlength="500" aria-label="New memory">
+      <button class="btn primary" type="submit">Add</button>
+    </form>
+    <div id="mem-list"></div>
+    <h3>Backup</h3>
+    <div class="row">
+      <button class="btn sm" id="mem-export" type="button">Export memories</button>
+      <button class="btn sm" id="mem-import" type="button">Import memories</button>
+      <input type="file" id="mem-file" accept="application/json,.json" hidden>
+    </div>
+    <h3>Conversation</h3>
+    <div class="row"><button class="btn danger sm" id="clear-history" type="button">Clear conversation history</button></div>
+    <div class="note" id="mem-msg" hidden></div>
+  </div>
+</dialog>
+
+<!-- Settings sheet -->
+<dialog class="sheet" id="sheet-settings" aria-labelledby="set-title">
+  <div class="sheet-head"><h2 id="set-title">Settings</h2><button class="btn sm" data-close>Done</button></div>
+  <div class="sheet-body">
+    <div class="field">
+      <label for="set-backend">Backend URL</label>
+      <input type="url" id="set-backend" placeholder="https://your-backend.example.com" inputmode="url" autocapitalize="off" spellcheck="false">
+      <small>Leave empty if this page is served by the backend itself.</small>
+    </div>
+    <div class="field">
+      <label for="set-code">Access code (optional)</label>
+      <input type="password" id="set-code" autocomplete="off" autocapitalize="off">
+      <small>Only needed if you set REM_ACCESS_CODE on your backend. It is not your Gemini key.</small>
+    </div>
+    <div class="row"><button class="btn sm" id="btn-check" type="button">Test connection</button></div>
+    <div class="note" id="check-msg" hidden></div>
+
+    <div class="field">
+      <label for="set-lang">I will speak in</label>
+      <select id="set-lang">
+        <option value="auto">Auto (Hinglish / English)</option>
+        <option value="hinglish">Hinglish</option>
+        <option value="hindi">Hindi (हिन्दी)</option>
+        <option value="english">English</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="set-voice">Rem's voice</label>
+      <select id="set-voice"><option value="">Automatic</option></select>
+    </div>
+    <div class="field"><label for="set-rate">Speaking speed</label><input type="range" id="set-rate" min="0.7" max="1.4" step="0.05"></div>
+    <div class="field"><label for="set-pitch">Voice pitch</label><input type="range" id="set-pitch" min="0.8" max="1.6" step="0.05"></div>
+    <label class="switch">Speak replies aloud <input type="checkbox" id="set-speak"></label>
+    <label class="switch">Hands-free conversation <input type="checkbox" id="set-hands"></label>
+    <div class="row"><button class="btn sm" id="btn-test-voice" type="button">Test voice</button></div>
+    <div class="note" id="support-note"></div>
+  </div>
+</dialog>
+
+<script src="config.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "_help": "Leave 'base' as null to use the built-in drawn character. To use your own art, put PNG/WebP/SVG files in this folder and list ONLY files that really exist. All layers should be the same size as the base image so they stack exactly. See README.",
+  "base": null,
+  "blink": null,
+  "expressions": {},
+  "mouthFrames": [],
+  "gestures": {}
+}
